@@ -1,6 +1,5 @@
 import requests
 from locust import HttpUser, task, between
-from locust_plugins.csvreader import CSVReader
 
 # agent_uuids = CSVReader("agent_uuids.csv")
 # office_ids = CSVReader("office_ids.csv")
