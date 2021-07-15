@@ -1,9 +1,15 @@
 import requests
+import pandas as pd
 from locust import HttpUser, task, between
 
-# agent_uuids = CSVReader("agent_uuids.csv")
-# office_ids = CSVReader("office_ids.csv")
-# company_ids = CSVReader("company_ids.csv")
+csv_files = ['agent', 'company', 'office']
+path = 'branding/csv'
+
+dataframes_list = []
+
+for i in range(len(csv_files)):
+    temp_df = pd.read_csv(f"{path}/{csv_files[i]}.csv")
+    dataframes_list.append(temp_df)
 
 
 class PerfBranding(HttpUser):
@@ -22,18 +28,24 @@ class PerfBranding(HttpUser):
 
     def __init__(self, parent):
         super(PerfBranding, self).__init__(parent)
-        self.ag_uuid = "6e02aeec-991f-4903-93ae-280b44c8bbb6"
-        self.comp_id = "3139213"
-        self.office_id = "21684435"
+        self.agents = dataframes_list[0]
+        self.companies = dataframes_list[1]
+        self.offices = dataframes_list[2]
 
     @task(15)
     def get_agent(self):
-        self.client.get(url=F"/service/v1/branding/agent/{self.ag_uuid}?locale=en-US", name="Agent")
+        for _, ag in self.agents.iterrows():
+            a = self.client.get(url=F"/service/v1/branding/agent/{ag[0]}?locale=en-US", name="Agents")
+            a.raise_for_status()
 
     @task(4)
-    def get_branding(self):
-        self.client.get(url=F"/service/v1/branding/company/{self.comp_id}?locale=en-US", name="Company")
+    def get_companies(self):
+        for _, br in self.companies.iterrows():
+            a = self.client.get(url=F"/service/v1/branding/company/{br[0]}?locale=en-US", name="Companies")
+            a.raise_for_status()
 
     @task(1)
     def get_office(self):
-        self.client.get(url=F"/service/v1/branding/office/{self.office_id}?locale=en-US", name="Office")
+        for _, off in self.offices.iterrows():
+            a = self.client.get(url=F"/service/v1/branding/office/{off[0]}?locale=en-US", name="Offices")
+            a.raise_for_status()
