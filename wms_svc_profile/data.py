@@ -1,8 +1,8 @@
 from faker import Faker
 
 mock = Faker()
-
-v2_insec_comp_ag_endpoint = "/service/profile/v2_insecure/company/3139213/agents"
+v2_insec_comp_ag_uuid = 3139213
+v2_insec_comp_ag_endpoint = f"/service/profile/v2_insecure/company/{v2_insec_comp_ag_uuid}/agents"
 v2_endpoint = "/service/v1/profile/"
 
 alt_off_ag_uuids = [

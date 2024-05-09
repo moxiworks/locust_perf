@@ -1,9 +1,10 @@
 from faker import Faker
 
 mock = Faker()
-
-dedupe_endpoint = "/service/v1/listing/search/a16c386c-f1b0-41db-b22b-7f9dc1917a0f/nn/dedupe"
-search_dedupe_endpoint = "/service/v1/listing/search/6e02aeec-991f-4903-93ae-280b44c8bbb6/company"
+dedupe_ag_uuid = "a16c386c-f1b0-41db-b22b-7f9dc1917a0f"
+search_dedupe_ag_uuid = "6e02aeec-991f-4903-93ae-280b44c8bbb6"
+dedupe_endpoint = f"/service/v1/listing/search/{dedupe_ag_uuid}/nn/dedupe"
+search_dedupe_endpoint = f"/service/v1/listing/search/{search_dedupe_ag_uuid}/company"
 auth = {
     "testing": "ST"
 }
