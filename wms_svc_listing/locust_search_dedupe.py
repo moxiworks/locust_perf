@@ -1,14 +1,14 @@
 import json
 from faker import Faker
 from locust import HttpUser, task, between
-from data import (dedupe_params,dedupe_endpoint, auth,
+from data import (search_dedupe_params,search_dedupe_endpoint, auth,
                   headers)
 
 class PerfListingSvc(HttpUser):
     def __init__(self, parent):
         super(PerfListingSvc, self).__init__(parent)
-        self.dedupe_endpoint = dedupe_endpoint
-        self.dedupe_params = dedupe_params
+        self.dedupe_endpoint = search_dedupe_endpoint
+        self.dedupe_params = search_dedupe_params
         self.auth = auth
         self.headers = headers
         self.mock = Faker()
