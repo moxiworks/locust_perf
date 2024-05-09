@@ -93,18 +93,27 @@ class PerfProfileSvc(HttpUser):
             print("request_failed", e)
 
     @task()
-    def get_profile_v2_attr_search(self):
+    def get_profile_v2_syndication_search(self):
         try:
-            resp = self.client.get(url=self.v2_profile_attr_search_endpoint,
-                                   params={**self.attr_search_params, **self.auth})
+            resp = self.client.get(url=self.syndication_profile_endpoint,
+                                   params={**self.syndication_prof_params, **self.auth})
             assert resp.status_code == 200
         except Exception as e:
             print("request_failed", e)
 
+    # @task()
+    # def get_profile_v2_attr_search(self):
+    #     try:
+    #         resp = self.client.get(url=self.v2_profile_attr_search_endpoint,
+    #                                params={**self.attr_search_params, **self.auth})
+    #         assert resp.status_code == 200
+    #     except Exception as e:
+    #         print("request_failed", e)
+
     @task()
     def get_profile_v2_for_sso(self):
         try:
-            resp = self.client.post(url=f"{self.v2_profile_attr_search_endpoint}{self.profile_uuid}",
+            resp = self.client.post(url=f"{self.v2_for_sso_endpoint}{self.profile_uuid}",
                                     params={**self.attr_search_params, **self.auth})
             assert resp.status_code == 200
         except Exception as e:
@@ -113,7 +122,7 @@ class PerfProfileSvc(HttpUser):
     @task()
     def get_profile_v2_search_assoc(self):
         try:
-            resp = self.client.post(url=self.v2_profile_search_association_endpoint,
+            resp = self.client.get(url=self.v2_profile_search_association_endpoint,
                                     params={**self.search_association_params, **self.auth})
             assert resp.status_code == 200
         except Exception as e:
