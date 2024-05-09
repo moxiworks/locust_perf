@@ -46,12 +46,13 @@ v2_insec_comp_ag_endpoint = f"/service/profile/v2_insecure/company/{v2_insec_com
 v2_insec_office_ag_endpoint = f"/service/profile/v2_insecure/office/{v2_insec_office_ag_uuid}/agents"
 v2_comp_ag_endpoint = f"/service/profile/v2_insecure/company/{v2_insec_comp_ag_uuid}/agents"
 v2_office_ag_endpoint = f"/service/profile/v2_insecure/office/{v2_insec_office_ag_uuid}/agents"
-public_key = f"/service/profile/v2/public_key/{publickey}"
+public_key_endpoint = f"/service/profile/v2/public_key/{publickey}"
 v2_endpoint = "/service/v1/profile/"
-syndication_profile = "/service/profile/v2/syndication/profile"
-v2_profile = "service/profile/v2/"
-v2_profile_attr_search = "/service/profile/v2/attribute"
-v2_for_sso = "service/profile/v2/for_sso/"
+syndication_profile_endpoint = "/service/profile/v2/syndication/profile"
+v2_profile_endpoint = "service/profile/v2/"
+v2_profile_attr_search_endpoint = "/service/profile/v2/attribute"
+v2_profile_search_association_endpoint = "/service/profile/v2/search_by_association"
+v2_for_sso_endpoint = "service/profile/v2/for_sso/"
 
 
 #Headers
