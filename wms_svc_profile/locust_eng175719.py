@@ -4,13 +4,14 @@ from data import (v2_insec_comp_ag_endpoint, v2_insec_office_ag_endpoint, v2_com
                   public_key_endpoint, syndication_profile_endpoint, v2_profile_endpoint,
                   v2_profile_attr_search_endpoint, v2_for_sso_endpoint, v2_profile_search_association_endpoint,
                   insec_comp_ag_params, syndication_prof_params, attr_search_params, search_association_params,
-                  syndication_prof_uuid, auth, headers)
+                  syndication_prof_uuid, auth, headers, v2_comp_agsearch_endpoint)
 
 
 class PerfProfileSvc(HttpUser):
     def __init__(self, parent):
         super(PerfProfileSvc, self).__init__(parent)
         self.v2_insec_comp_ag_endpoint = v2_insec_comp_ag_endpoint
+        self.v2_comp_agsearch_endpoint = v2_comp_agsearch_endpoint
         self.insec_comp_ag_params = insec_comp_ag_params
         self.v2_insec_office_ag_endpoint = v2_insec_office_ag_endpoint
         self.v2_comp_ag_endpoint = v2_comp_ag_endpoint
@@ -28,6 +29,16 @@ class PerfProfileSvc(HttpUser):
         self.auth = auth
         self.headers = headers
         self.mock = Faker()
+
+
+    @task()
+    def get_v2_comp_agsearch(self):
+        try:
+            resp = self.client.get(url=self.v2_comp_agsearch_endpoint,
+                                   params={**self.auth, **self.insec_comp_ag_params})
+            assert resp.status_code == 200
+        except Exception as e:
+            print("request_failed", e)
 
     @task()
     def get_v2_insec_comp_ag(self):
@@ -101,14 +112,14 @@ class PerfProfileSvc(HttpUser):
         except Exception as e:
             print("request_failed", e)
 
-    # @task()
-    # def get_profile_v2_attr_search(self):
-    #     try:
-    #         resp = self.client.get(url=self.v2_profile_attr_search_endpoint,
-    #                                params={**self.attr_search_params, **self.auth})
-    #         assert resp.status_code == 200
-    #     except Exception as e:
-    #         print("request_failed", e)
+    @task()
+    def get_profile_v2_attr_search(self):
+        try:
+            resp = self.client.get(url=self.v2_profile_attr_search_endpoint,
+                                   params={**self.attr_search_params, **self.auth})
+            assert resp.status_code == 200
+        except Exception as e:
+            print("request_failed", e)
 
     @task()
     def get_profile_v2_for_sso(self):
